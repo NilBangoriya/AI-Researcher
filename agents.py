@@ -1,5 +1,5 @@
 from langchain.agents import create_agent
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from tools import web_search , scrape_url 
@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-llm = ChatGoogleGenerativeAI(model = "gemini-2.5-flash",temperature=0)
+llm = ChatOpenAI(model = "gpt-4o-mini",temperature=0)
 
 def build_search_agent():
     return create_agent(
@@ -44,6 +44,6 @@ critic_prompt = ChatPromptTemplate.from_messages([
      Areas to Improve:
      - ...
      - ...
-     One line verdict:
-     ..."""),])
+     One line verdict:..."""),
+])
 critic_chain = critic_prompt | llm | StrOutputParser()
